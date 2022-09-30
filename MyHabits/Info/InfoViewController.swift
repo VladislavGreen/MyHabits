@@ -16,13 +16,6 @@ class InfoViewController: UIViewController {
         return view
     }()
     
-    private lazy var bottomSeparator: UIView = {
-        let view = UIView()
-        view.layer.backgroundColor = UIColor(red: 0.235, green: 0.235, blue: 0.263, alpha: 0.29).cgColor
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-
     private lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
@@ -32,13 +25,16 @@ class InfoViewController: UIViewController {
     private lazy var stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
-//        stackView.spacing = 10
-//        stackView.distribution = .fillEqually
+        stackView.spacing = 12
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
 
-
+    private lazy var titleLabelView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .white
+        return view
+    }()
     
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
@@ -47,7 +43,7 @@ class InfoViewController: UIViewController {
         label.frame = CGRect(x: 0, y: 0, width: 218, height: 24)
         label.backgroundColor = .white
         label.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
-        label.font = UIFont(name: "SFProDisplay-Semibold", size: 20)
+        label.font = myHabitsFonts.title3
         paragraphStyle.lineHeightMultiple = 1.01
         label.attributedText = NSMutableAttributedString(
             string: label.text ?? "No Text",
@@ -60,14 +56,14 @@ class InfoViewController: UIViewController {
         return label
     }()
     
-    private lazy var titleSeparatorView: UIView = {
+    private var textLabel = UILabel()
+    
+    private lazy var bottomSeparator: UIView = {
         let view = UIView()
-        view.backgroundColor = .white
+        view.layer.backgroundColor = UIColor(red: 0.235, green: 0.235, blue: 0.263, alpha: 0.29).cgColor
+        view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    
-    
-    private var textLabel = UILabel()
   
     
     override func viewWillAppear(_ animated: Bool) {
@@ -87,8 +83,8 @@ class InfoViewController: UIViewController {
         self.view.addSubview(self.topSeparator)
         self.view.addSubview(self.scrollView)
         self.scrollView.addSubview(self.stackView)
-        self.stackView.addArrangedSubview(self.titleLabel)
-        self.stackView.addArrangedSubview(self.titleSeparatorView)
+        self.stackView.addArrangedSubview(self.titleLabelView)
+        self.titleLabelView.addSubview(self.titleLabel)
         
         for key in InfoData.text.keys.sorted() {
             guard key >= 0 else { continue }
@@ -98,7 +94,7 @@ class InfoViewController: UIViewController {
             label.frame = CGRect(x: 0, y: 0, width: 343, height: 66)
             label.backgroundColor = .white
             label.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
-            label.font = UIFont(name: "SFProText-Regular", size: 17)
+            label.font = myHabitsFonts.body
             label.numberOfLines = 0
             label.lineBreakMode = .byWordWrapping
             let paragraphStyle = NSMutableParagraphStyle()
@@ -114,14 +110,11 @@ class InfoViewController: UIViewController {
             self.stackView.addArrangedSubview(textLabel)
         }
         
-           
-        
         self.view.addSubview(self.bottomSeparator)
 
 //        for fontFamily in UIFont.familyNames {
 //           print(UIFont.fontNames(forFamilyName: fontFamily))
 //        }
-
         
         NSLayoutConstraint.activate([
             
@@ -135,22 +128,15 @@ class InfoViewController: UIViewController {
             self.scrollView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
             self.scrollView.bottomAnchor.constraint(equalTo: self.bottomSeparator.topAnchor),
             
-            self.stackView.topAnchor.constraint(equalTo: self.scrollView.topAnchor),
+            self.stackView.topAnchor.constraint(equalTo: self.view.topAnchor),
             self.stackView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 16),
             self.stackView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -16),
-            self.stackView.bottomAnchor.constraint(equalTo: self.scrollView.bottomAnchor),
+            self.stackView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
             
-            self.titleLabel.topAnchor.constraint(equalTo: self.stackView.topAnchor, constant: 22),
-            self.titleLabel.widthAnchor.constraint(equalToConstant: 218),
-            self.titleLabel.heightAnchor.constraint(equalToConstant: 24),
-            self.titleLabel.leadingAnchor.constraint(equalTo: self.stackView.leadingAnchor),
+            self.titleLabelView.topAnchor.constraint(equalTo: self.stackView.topAnchor),
+            self.titleLabelView.heightAnchor.constraint(equalToConstant: 50),
             
-//            self.titleSeparatorView.topAnchor.constraint(equalTo: self.titleLabel.bottomAnchor, constant: 16),
-//            self.titleSeparatorView.widthAnchor.constraint(equalToConstant: 218),
-            self.titleSeparatorView.heightAnchor.constraint(equalToConstant: 16),
-//            self.titleSeparatorView.leadingAnchor.constraint(equalTo: self.stackView.leadingAnchor),
-            
-//            self.textLabel.topAnchor.constraint(equalTo: self.titleLabel.bottomAnchor, constant: 16),
+            self.titleLabel.topAnchor.constraint(equalTo: self.titleLabelView.topAnchor, constant: 22),
             
             self.bottomSeparator.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -1),
             self.bottomSeparator.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
@@ -164,6 +150,4 @@ class InfoViewController: UIViewController {
         let text: String = InfoData.text[forParagraphNumber] ?? "No Text"
         return text
     }
-    
-    
 }

@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		A49CD41028E4A46500C4CC11 /* SFProText-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A49CD40D28E4A46500C4CC11 /* SFProText-Regular.ttf */; };
 		A49CD41228E4A46500C4CC11 /* SFProDisplay-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A49CD40F28E4A46500C4CC11 /* SFProDisplay-Semibold.ttf */; };
+		A49CD41728E58CF000C4CC11 /* HabitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49CD41628E58CF000C4CC11 /* HabitViewController.swift */; };
+		A49CD41928E6E0D600C4CC11 /* myHabitsFonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49CD41828E6E0D600C4CC11 /* myHabitsFonts.swift */; };
+		A49CD41B28E72ABC00C4CC11 /* drafts.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49CD41A28E72ABC00C4CC11 /* drafts.swift */; };
 		A4A8B21E28E1D67700D520E4 /* HabitsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A8B21D28E1D67700D520E4 /* HabitsStore.swift */; };
 		A4A8B22028E1D70C00D520E4 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A8B21F28E1D70C00D520E4 /* TabBarController.swift */; };
 		A4A8B22228E1D7EB00D520E4 /* HabitsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A8B22128E1D7EB00D520E4 /* HabitsViewController.swift */; };
@@ -24,6 +27,9 @@
 /* Begin PBXFileReference section */
 		A49CD40D28E4A46500C4CC11 /* SFProText-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFProText-Regular.ttf"; sourceTree = "<group>"; };
 		A49CD40F28E4A46500C4CC11 /* SFProDisplay-Semibold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFProDisplay-Semibold.ttf"; sourceTree = "<group>"; };
+		A49CD41628E58CF000C4CC11 /* HabitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitViewController.swift; sourceTree = "<group>"; };
+		A49CD41828E6E0D600C4CC11 /* myHabitsFonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = myHabitsFonts.swift; sourceTree = "<group>"; };
+		A49CD41A28E72ABC00C4CC11 /* drafts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = drafts.swift; sourceTree = "<group>"; };
 		A4A8B21D28E1D67700D520E4 /* HabitsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitsStore.swift; sourceTree = "<group>"; };
 		A4A8B21F28E1D70C00D520E4 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		A4A8B22128E1D7EB00D520E4 /* HabitsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitsViewController.swift; sourceTree = "<group>"; };
@@ -49,13 +55,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		A49CD41328E4BA0100C4CC11 /* Fonts */ = {
+		A49CD41328E4BA0100C4CC11 /* myHabitsUIData */ = {
 			isa = PBXGroup;
 			children = (
+				A49CD41828E6E0D600C4CC11 /* myHabitsFonts.swift */,
 				A49CD40F28E4A46500C4CC11 /* SFProDisplay-Semibold.ttf */,
 				A49CD40D28E4A46500C4CC11 /* SFProText-Regular.ttf */,
 			);
-			path = Fonts;
+			path = myHabitsUIData;
 			sourceTree = "<group>";
 		};
 		A49CD41428E4BA1100C4CC11 /* Info */ = {
@@ -74,6 +81,15 @@
 				A4A8B22128E1D7EB00D520E4 /* HabitsViewController.swift */,
 			);
 			path = Habits;
+			sourceTree = "<group>";
+		};
+		A49CD41C28E72B4100C4CC11 /* Auxilary */ = {
+			isa = PBXGroup;
+			children = (
+				A4DAB24828E447AE00BE2DF2 /* Questions.rtf */,
+				A49CD41A28E72ABC00C4CC11 /* drafts.swift */,
+			);
+			path = Auxilary;
 			sourceTree = "<group>";
 		};
 		A4B95E2D28E1B873004A4FD7 = {
@@ -95,7 +111,7 @@
 		A4B95E3828E1B873004A4FD7 /* MyHabits */ = {
 			isa = PBXGroup;
 			children = (
-				A4DAB24828E447AE00BE2DF2 /* Questions.rtf */,
+				A49CD41628E58CF000C4CC11 /* HabitViewController.swift */,
 				A49CD41528E4BA4400C4CC11 /* Habits */,
 				A49CD41428E4BA1100C4CC11 /* Info */,
 				A4A8B21F28E1D70C00D520E4 /* TabBarController.swift */,
@@ -104,7 +120,8 @@
 				A4B95E4428E1B874004A4FD7 /* LaunchScreen.storyboard */,
 				A4B95E4728E1B874004A4FD7 /* Info.plist */,
 				A4B95E4228E1B874004A4FD7 /* Assets.xcassets */,
-				A49CD41328E4BA0100C4CC11 /* Fonts */,
+				A49CD41328E4BA0100C4CC11 /* myHabitsUIData */,
+				A49CD41C28E72B4100C4CC11 /* Auxilary */,
 			);
 			path = MyHabits;
 			sourceTree = "<group>";
@@ -185,10 +202,13 @@
 				A4A8B21E28E1D67700D520E4 /* HabitsStore.swift in Sources */,
 				A4A8B22228E1D7EB00D520E4 /* HabitsViewController.swift in Sources */,
 				A4DAB24728E379BB00BE2DF2 /* InfoData.swift in Sources */,
+				A49CD41728E58CF000C4CC11 /* HabitViewController.swift in Sources */,
 				A4A8B22428E1D81A00D520E4 /* InfoViewController.swift in Sources */,
+				A49CD41928E6E0D600C4CC11 /* myHabitsFonts.swift in Sources */,
 				A4B95E3A28E1B873004A4FD7 /* AppDelegate.swift in Sources */,
 				A4A8B22028E1D70C00D520E4 /* TabBarController.swift in Sources */,
 				A4B95E3C28E1B873004A4FD7 /* SceneDelegate.swift in Sources */,
+				A49CD41B28E72ABC00C4CC11 /* drafts.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -13,14 +13,14 @@ class HabitsViewController: UIViewController {
         let button = UIBarButtonItem()
         button.style = .plain
         button.image = UIImage(systemName: "plus")
-//        button.target = HabitsViewController.self
-        button.action = #selector(didTapButton(sender:))
+        button.target = HabitsViewController.self
+        button.action = #selector(didTapButton)
         return button
     }()
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
+        let barButtonItem = UIBarButtonItem(image: barButtonItem.image, style: .plain, target: self, action: #selector(didTapButton))
         navigationItem.rightBarButtonItem = barButtonItem
     }
     
@@ -33,8 +33,11 @@ class HabitsViewController: UIViewController {
         view.backgroundColor = .white
     }
     
-    @objc func didTapButton(sender: UIBarButtonItem) {
-        
+    @objc func didTapButton() {
+        let vc = HabitViewController()
+        let nc = UINavigationController(rootViewController:vc)
+//        nc.modalPresentationStyle = .fullScreen
+        self.present(nc, animated: true, completion: nil)
     }
 }
 
