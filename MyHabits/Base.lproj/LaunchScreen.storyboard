@@ -16,38 +16,47 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="MyHabits" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EHx-hz-8BB">
-                                <rect key="frame" x="163" y="749" width="88" height="24"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
-                                <color key="textColor" systemColor="systemPurpleColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" fixedFrame="YES" image="logo" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="i62-JC-Wi8">
-                                <rect key="frame" x="147" y="389" width="120" height="120"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" image="LaunchScreen Icon" translatesAutoresizingMaskIntoConstraints="NO" id="YTp-6g-PpX">
+                                <rect key="frame" x="147" y="388" width="120" height="120"/>
                                 <accessibility key="accessibilityConfiguration">
                                     <accessibilityTraits key="traits" image="YES" notEnabled="YES"/>
                                 </accessibility>
-                                <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="default"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="120" id="Lyb-bQ-T6N"/>
+                                    <constraint firstAttribute="width" constant="120" id="gQB-PR-e5c"/>
+                                </constraints>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="LaunchScreen Text" translatesAutoresizingMaskIntoConstraints="NO" id="khj-Nz-HPa">
+                                <rect key="frame" x="163" y="762" width="88" height="24"/>
+                                <accessibility key="accessibilityConfiguration">
+                                    <accessibilityTraits key="traits" image="YES" notEnabled="YES"/>
+                                </accessibility>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="24" id="7kG-Sr-2Cf"/>
+                                    <constraint firstAttribute="width" constant="88" id="Hev-VH-DzR"/>
+                                </constraints>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="khj-Nz-HPa" secondAttribute="bottom" constant="76" id="QtV-eh-Nmc"/>
+                            <constraint firstItem="khj-Nz-HPa" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="gmY-rW-OFW"/>
+                            <constraint firstItem="YTp-6g-PpX" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="juK-OR-Qd1"/>
+                            <constraint firstItem="YTp-6g-PpX" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="tC4-hO-pQj"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="53" y="375"/>
+            <point key="canvasLocation" x="52.173913043478265" y="375"/>
         </scene>
     </scenes>
     <resources>
-        <image name="logo" width="120" height="120"/>
+        <image name="LaunchScreen Icon" width="329" height="329"/>
+        <image name="LaunchScreen Text" width="86" height="19"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="systemPurpleColor">
-            <color red="0.68627450980392157" green="0.32156862745098042" blue="0.87058823529411766" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

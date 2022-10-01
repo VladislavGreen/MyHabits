@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A48B25AC28E76798004BA11D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A4B95E4428E1B874004A4FD7 /* LaunchScreen.storyboard */; };
 		A49CD41028E4A46500C4CC11 /* SFProText-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A49CD40D28E4A46500C4CC11 /* SFProText-Regular.ttf */; };
 		A49CD41228E4A46500C4CC11 /* SFProDisplay-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A49CD40F28E4A46500C4CC11 /* SFProDisplay-Semibold.ttf */; };
 		A49CD41728E58CF000C4CC11 /* HabitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49CD41628E58CF000C4CC11 /* HabitViewController.swift */; };
@@ -19,7 +20,6 @@
 		A4B95E3A28E1B873004A4FD7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B95E3928E1B873004A4FD7 /* AppDelegate.swift */; };
 		A4B95E3C28E1B873004A4FD7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B95E3B28E1B873004A4FD7 /* SceneDelegate.swift */; };
 		A4B95E4328E1B874004A4FD7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A4B95E4228E1B874004A4FD7 /* Assets.xcassets */; };
-		A4B95E4628E1B874004A4FD7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A4B95E4428E1B874004A4FD7 /* LaunchScreen.storyboard */; };
 		A4DAB24728E379BB00BE2DF2 /* InfoData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DAB24628E379BB00BE2DF2 /* InfoData.swift */; };
 		A4DAB24928E447AE00BE2DF2 /* Questions.rtf in Resources */ = {isa = PBXBuildFile; fileRef = A4DAB24828E447AE00BE2DF2 /* Questions.rtf */; };
 /* End PBXBuildFile section */
@@ -186,8 +186,8 @@
 			files = (
 				A4DAB24928E447AE00BE2DF2 /* Questions.rtf in Resources */,
 				A49CD41228E4A46500C4CC11 /* SFProDisplay-Semibold.ttf in Resources */,
-				A4B95E4628E1B874004A4FD7 /* LaunchScreen.storyboard in Resources */,
 				A4B95E4328E1B874004A4FD7 /* Assets.xcassets in Resources */,
+				A48B25AC28E76798004BA11D /* LaunchScreen.storyboard in Resources */,
 				A49CD41028E4A46500C4CC11 /* SFProText-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -350,6 +350,7 @@
 				DEVELOPMENT_TEAM = DRZ83U4BJ3;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MyHabits/Info.plist;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -375,6 +376,7 @@
 				DEVELOPMENT_TEAM = DRZ83U4BJ3;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MyHabits/Info.plist;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
