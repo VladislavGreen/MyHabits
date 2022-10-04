@@ -20,6 +20,8 @@
 		A4B95E3A28E1B873004A4FD7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B95E3928E1B873004A4FD7 /* AppDelegate.swift */; };
 		A4B95E3C28E1B873004A4FD7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B95E3B28E1B873004A4FD7 /* SceneDelegate.swift */; };
 		A4B95E4328E1B874004A4FD7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A4B95E4228E1B874004A4FD7 /* Assets.xcassets */; };
+		A4C4C22428E9CD6B00FF9806 /* ProgressCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C4C22328E9CD6B00FF9806 /* ProgressCollectionViewCell.swift */; };
+		A4C4C22628E9CD8800FF9806 /* HabitCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C4C22528E9CD8800FF9806 /* HabitCollectionViewCell.swift */; };
 		A4DAB24728E379BB00BE2DF2 /* InfoData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4DAB24628E379BB00BE2DF2 /* InfoData.swift */; };
 		A4DAB24928E447AE00BE2DF2 /* Questions.rtf in Resources */ = {isa = PBXBuildFile; fileRef = A4DAB24828E447AE00BE2DF2 /* Questions.rtf */; };
 /* End PBXBuildFile section */
@@ -40,6 +42,8 @@
 		A4B95E4228E1B874004A4FD7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A4B95E4528E1B874004A4FD7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A4B95E4728E1B874004A4FD7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A4C4C22328E9CD6B00FF9806 /* ProgressCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressCollectionViewCell.swift; sourceTree = "<group>"; };
+		A4C4C22528E9CD8800FF9806 /* HabitCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitCollectionViewCell.swift; sourceTree = "<group>"; };
 		A4DAB24628E379BB00BE2DF2 /* InfoData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoData.swift; sourceTree = "<group>"; };
 		A4DAB24828E447AE00BE2DF2 /* Questions.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = Questions.rtf; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -78,6 +82,8 @@
 			isa = PBXGroup;
 			children = (
 				A4A8B21D28E1D67700D520E4 /* HabitsStore.swift */,
+				A4C4C22528E9CD8800FF9806 /* HabitCollectionViewCell.swift */,
+				A4C4C22328E9CD6B00FF9806 /* ProgressCollectionViewCell.swift */,
 				A4A8B22128E1D7EB00D520E4 /* HabitsViewController.swift */,
 			);
 			path = Habits;
@@ -204,11 +210,13 @@
 				A4DAB24728E379BB00BE2DF2 /* InfoData.swift in Sources */,
 				A49CD41728E58CF000C4CC11 /* HabitViewController.swift in Sources */,
 				A4A8B22428E1D81A00D520E4 /* InfoViewController.swift in Sources */,
+				A4C4C22428E9CD6B00FF9806 /* ProgressCollectionViewCell.swift in Sources */,
 				A49CD41928E6E0D600C4CC11 /* myHabitsFonts.swift in Sources */,
 				A4B95E3A28E1B873004A4FD7 /* AppDelegate.swift in Sources */,
 				A4A8B22028E1D70C00D520E4 /* TabBarController.swift in Sources */,
 				A4B95E3C28E1B873004A4FD7 /* SceneDelegate.swift in Sources */,
 				A49CD41B28E72ABC00C4CC11 /* drafts.swift in Sources */,
+				A4C4C22628E9CD8800FF9806 /* HabitCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

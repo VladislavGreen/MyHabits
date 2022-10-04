@@ -8,6 +8,7 @@
 import UIKit
 
 struct myHabitsFonts {
+    static let largeTitleBold = UIFont(name: "SFProDisplay-Bold", size: 34)
     static let title3 = UIFont(name: "SFProDisplay-Semibold", size: 20)
     static let headline = UIFont(name: "SFProText-Semibold", size: 17)
     static let body = UIFont(name: "SFProText-Regular", size: 17)

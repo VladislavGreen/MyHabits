@@ -106,7 +106,7 @@ class HabitViewController: UIViewController {
         button.layer.borderColor = UIColor(red: 1, green: 0.624, blue: 0.31, alpha: 1).cgColor
         button.layer.borderWidth = 1
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.addTarget(self, action: #selector(didTapButton), for: .touchUpInside)
+        button.addTarget(self, action: #selector(didTapColorButton), for: .touchUpInside)
         return button
     }()
     
@@ -137,10 +137,8 @@ class HabitViewController: UIViewController {
         label.backgroundColor = .white
         label.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
         label.font = myHabitsFonts.body
-        var paragraphStyle = NSMutableParagraphStyle()
+        let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineHeightMultiple = 1.08
-        // Line height: 22 pt
-        // (identical to box height)
         label.attributedText = NSMutableAttributedString(
             string: "Каждый день в 11:00 PM",
             attributes: [NSAttributedString.Key.kern: -0.41, NSAttributedString.Key.paragraphStyle: paragraphStyle])
@@ -159,9 +157,6 @@ class HabitViewController: UIViewController {
         datePicker.addTarget(self, action: #selector(self.didChooseDate), for: .valueChanged)
         return datePicker
     }()
-    
-    
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -238,7 +233,6 @@ class HabitViewController: UIViewController {
             self.scrollView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
             self.scrollView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
             
-//            self.stackView.topAnchor.constraint(equalTo: self.scrollView.topAnchor),
             self.stackView.leadingAnchor.constraint(equalTo: self.scrollView.leadingAnchor),
             self.stackView.widthAnchor.constraint(equalTo: self.scrollView.widthAnchor),
             
@@ -269,8 +263,6 @@ class HabitViewController: UIViewController {
             self.habitTimeComment.bottomAnchor.constraint(equalTo: self.habitTimeCommentView.bottomAnchor),
             
             self.datePickerView.heightAnchor.constraint(equalToConstant: 15 + 216),
-//            self.datePicker.centerXAnchor.constraint(equalTo: self.datePickerView.centerXAnchor),
-//            self.datePicker.bottomAnchor.constraint(equalTo: self.datePickerView.bottomAnchor),
         ])
     }
     
@@ -296,19 +288,10 @@ class HabitViewController: UIViewController {
         self.scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
     }
     
-    
-    @objc private func didTapButton() {
-        
-        // Initializing Color Picker
+    @objc private func didTapColorButton() {
         let picker = UIColorPickerViewController()
-
-        // Setting the Initial Color of the Picker
-        picker.selectedColor = self.view.backgroundColor!
-
-        // Setting Delegate
+        picker.selectedColor = UIColor(red: 1, green: 0.624, blue: 0.31, alpha: 1)
         picker.delegate = self
-
-        // Presenting the Color Picker
         self.present(picker, animated: true, completion: nil)
     }
     
@@ -333,6 +316,8 @@ class HabitViewController: UIViewController {
         let store = HabitsStore.shared
         store.habits.append(newHabit)
         self.dismiss(animated: true, completion: nil)
+        
+        NotificationCenter.default.post(name: Notification.Name("reloadHabits"), object: nil)
     }
 }
 
@@ -344,5 +329,11 @@ extension HabitViewController: UIColorPickerViewControllerDelegate {
         self.habitColorButton.layer.borderColor = UIColor(red: 0.9, green: 0.9, blue: 0.9, alpha: 1).cgColor
         habitColor = viewController.selectedColor
     }
+    
+    func colorPickerViewControllerDidSelectColor(_ viewController: UIColorPickerViewController) {
+        self.habitColorButton.layer.backgroundColor = UIColor.white.cgColor
+        self.habitColorButton.layer.borderColor = viewController.selectedColor.cgColor
+        
+     }
 }
 
