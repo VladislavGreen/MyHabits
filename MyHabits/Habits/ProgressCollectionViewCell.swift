@@ -11,7 +11,7 @@ class ProgressCollectionViewCell: UICollectionViewCell {
     
     private lazy var progressCellView: UIView = {
         let view = UIView()
-        view.backgroundColor = .gray
+        view.backgroundColor = .white
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -32,33 +32,28 @@ class ProgressCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
-    var todayProgress = HabitsStore.shared.todayProgress
-    var todayProgresPercantage = "\(HabitsStore.shared.todayProgress*100)"
-    
-    private lazy var progressLabel: UILabel = {
-        var label = UILabel()
+    lazy var progressLabel: UILabel = {
+        let label = UILabel()
         label.frame = CGRect(x: 0, y: 0, width: 95, height: 18)
         label.backgroundColor = .white
         label.textColor = UIColor(red: 0.557, green: 0.557, blue: 0.576, alpha: 1)
         label.font = myHabitsFonts.footnoteStatus
-        var paragraphStyle = NSMutableParagraphStyle()
+        let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineHeightMultiple = 1.16
         label.textAlignment = .right
-//        let todayProgress = HabitsStore.shared.todayProgress
-//        let todayProgresPercantage = "\(HabitsStore.shared.todayProgress*100)"
         label.attributedText = NSMutableAttributedString(
-            string: todayProgresPercantage,
+            string: "todayProgresPercantage",
             attributes: [NSAttributedString.Key.kern: -0.08, NSAttributedString.Key.paragraphStyle: paragraphStyle])
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    private lazy var progressBar: UIProgressView = {
+    lazy var progressBar: UIProgressView = {
         let bar = UIProgressView()
         bar.progressViewStyle = .bar
         bar.clipsToBounds = true
         bar.layer.cornerRadius = 5
-        bar.setProgress(todayProgress, animated: true)
+        bar.setProgress(0, animated: true)
         bar.trackTintColor = UIColor(red: 0.847, green: 0.847, blue: 0.847, alpha: 1)
         bar.tintColor = UIColor(red: 0.631, green: 0.086, blue: 0.8, alpha: 1)
         bar.translatesAutoresizingMaskIntoConstraints = false
@@ -73,7 +68,6 @@ class ProgressCollectionViewCell: UICollectionViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
     
     private func setupView() {
         self.addSubview(self.progressCellView)

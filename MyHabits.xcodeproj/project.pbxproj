@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A481980428EDCD010039135C /* HabitDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A481980328EDCD010039135C /* HabitDetailsViewController.swift */; };
 		A48B25AC28E76798004BA11D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A4B95E4428E1B874004A4FD7 /* LaunchScreen.storyboard */; };
 		A49CD41028E4A46500C4CC11 /* SFProText-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A49CD40D28E4A46500C4CC11 /* SFProText-Regular.ttf */; };
 		A49CD41228E4A46500C4CC11 /* SFProDisplay-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A49CD40F28E4A46500C4CC11 /* SFProDisplay-Semibold.ttf */; };
@@ -27,6 +28,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A481980328EDCD010039135C /* HabitDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitDetailsViewController.swift; sourceTree = "<group>"; };
 		A49CD40D28E4A46500C4CC11 /* SFProText-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFProText-Regular.ttf"; sourceTree = "<group>"; };
 		A49CD40F28E4A46500C4CC11 /* SFProDisplay-Semibold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFProDisplay-Semibold.ttf"; sourceTree = "<group>"; };
 		A49CD41628E58CF000C4CC11 /* HabitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitViewController.swift; sourceTree = "<group>"; };
@@ -117,6 +119,7 @@
 		A4B95E3828E1B873004A4FD7 /* MyHabits */ = {
 			isa = PBXGroup;
 			children = (
+				A481980328EDCD010039135C /* HabitDetailsViewController.swift */,
 				A49CD41628E58CF000C4CC11 /* HabitViewController.swift */,
 				A49CD41528E4BA4400C4CC11 /* Habits */,
 				A49CD41428E4BA1100C4CC11 /* Info */,
@@ -205,6 +208,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A481980428EDCD010039135C /* HabitDetailsViewController.swift in Sources */,
 				A4A8B21E28E1D67700D520E4 /* HabitsStore.swift in Sources */,
 				A4A8B22228E1D7EB00D520E4 /* HabitsViewController.swift in Sources */,
 				A4DAB24728E379BB00BE2DF2 /* InfoData.swift in Sources */,

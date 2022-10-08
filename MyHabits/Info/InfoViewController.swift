@@ -25,7 +25,10 @@ class InfoViewController: UIViewController {
     private lazy var stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
+        stackView.distribution = .fill
         stackView.spacing = 12
+        stackView.layoutMargins = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
+        stackView.isLayoutMarginsRelativeArrangement = true
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
@@ -47,11 +50,8 @@ class InfoViewController: UIViewController {
         paragraphStyle.lineHeightMultiple = 1.01
         label.attributedText = NSMutableAttributedString(
             string: label.text ?? "No Text",
-            attributes: [
-                NSAttributedString.Key.kern: 0.38,
-                NSAttributedString.Key.paragraphStyle: paragraphStyle
-            ]
-        )
+            attributes: [NSAttributedString.Key.kern: 0.38,
+                NSAttributedString.Key.paragraphStyle: paragraphStyle])
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -64,7 +64,6 @@ class InfoViewController: UIViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-  
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -88,7 +87,7 @@ class InfoViewController: UIViewController {
         
         for key in InfoData.text.keys.sorted() {
             guard key >= 0 else { continue }
-            print("\(key)")
+//            print("\(key)")
 
             let label = UILabel()
             label.frame = CGRect(x: 0, y: 0, width: 343, height: 66)
@@ -101,20 +100,17 @@ class InfoViewController: UIViewController {
             paragraphStyle.lineHeightMultiple = 1.01
             label.attributedText = NSMutableAttributedString(
                 string: textChooser(forParagraphNumber: key),
-                attributes: [
-                    NSAttributedString.Key.kern: -0.41,
-                    NSAttributedString.Key.paragraphStyle: paragraphStyle
-                ]
-            )
+                attributes: [NSAttributedString.Key.kern: -0.41,
+                    NSAttributedString.Key.paragraphStyle: paragraphStyle])
+            
             textLabel = label
+//            let view = UIView()
+//            view.addSubview(textLabel)
+            
             self.stackView.addArrangedSubview(textLabel)
         }
         
         self.view.addSubview(self.bottomSeparator)
-
-//        for fontFamily in UIFont.familyNames {
-//           print(UIFont.fontNames(forFamilyName: fontFamily))
-//        }
         
         NSLayoutConstraint.activate([
             
@@ -128,10 +124,11 @@ class InfoViewController: UIViewController {
             self.scrollView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
             self.scrollView.bottomAnchor.constraint(equalTo: self.bottomSeparator.topAnchor),
             
-            self.stackView.topAnchor.constraint(equalTo: self.view.topAnchor),
-            self.stackView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 16),
-            self.stackView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -16),
-            self.stackView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
+            self.stackView.topAnchor.constraint(equalTo: self.scrollView.topAnchor),
+            self.stackView.leadingAnchor.constraint(equalTo: self.scrollView.leadingAnchor),
+            self.stackView.trailingAnchor.constraint(equalTo: self.scrollView.trailingAnchor),
+            self.stackView.bottomAnchor.constraint(equalTo: self.scrollView.bottomAnchor),
+            self.stackView.widthAnchor.constraint(equalTo: self.scrollView.widthAnchor, multiplier: 1.0),
             
             self.titleLabelView.topAnchor.constraint(equalTo: self.stackView.topAnchor),
             self.titleLabelView.heightAnchor.constraint(equalToConstant: 50),
@@ -143,7 +140,7 @@ class InfoViewController: UIViewController {
             self.bottomSeparator.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
             self.bottomSeparator.heightAnchor.constraint(equalToConstant: 1),
             
-            ])
+        ])
     }
     
     private func textChooser (forParagraphNumber: Int) -> String {

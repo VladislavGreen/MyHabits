@@ -9,6 +9,10 @@ import UIKit
 
 class HabitViewController: UIViewController {
     
+    var habitIsNew = Bool()
+    
+    var habitToEditTag = Int()
+    
     private lazy var topSeparator: UIView = {
         let view = UIView()
         view.layer.backgroundColor = UIColor(red: 0.235, green: 0.235, blue: 0.263, alpha: 0.29).cgColor
@@ -25,7 +29,6 @@ class HabitViewController: UIViewController {
     private lazy var stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
-        stackView.distribution = .fill
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
@@ -34,7 +37,6 @@ class HabitViewController: UIViewController {
     
     private lazy var habitName: UILabel = {
         let titleLabel = UILabel()
-//        titleLabel.text = "НАЗВАНИЕ"
         titleLabel.font = myHabitsFonts.footNOTE
         titleLabel.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
         titleLabel.numberOfLines = 0
@@ -50,18 +52,14 @@ class HabitViewController: UIViewController {
     
     private lazy var habitNameTextFieldView = UIView()
     
-    private lazy var habitNameText = "Бегать по утрам, спать 8 часов и т.п."
+    private lazy var habitNameText = "Бегать по утрам, выпить стакан и.т.п"
     
     private lazy var habitNameTextField: UITextField = {
         let textField = UITextField()
         textField.borderStyle = .none
-//        textField.placeholder = "Бегать по утрам, спать 8 часов и т.п."
         textField.font = myHabitsFonts.body
         textField.textColor = UIColor(red: 0.682, green: 0.682, blue: 0.698, alpha: 1)
         textField.keyboardType = .emailAddress
-        textField.clearButtonMode = .whileEditing
-//        textField.delegate = self
-        
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineHeightMultiple = 1.08
         textField.attributedText = NSMutableAttributedString(
@@ -71,7 +69,7 @@ class HabitViewController: UIViewController {
             self,
             action: #selector(habitNameChanged(_:)),
             for: UIControl.Event.editingChanged)
-        textField.clearsOnBeginEditing = true
+        textField.clearsOnBeginEditing = habitIsNew
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
     }()
@@ -83,7 +81,6 @@ class HabitViewController: UIViewController {
         titleLabel.font = myHabitsFonts.footNOTE
         titleLabel.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
         titleLabel.numberOfLines = 0
-        
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineHeightMultiple = 1.16
         titleLabel.attributedText = NSMutableAttributedString(
@@ -95,15 +92,15 @@ class HabitViewController: UIViewController {
     
     private lazy var habitColorButtonView = UIView()
     
-    private lazy var habitColor = UIColor()
+    private lazy var habitColor = UIColor(red: 1, green: 0.624, blue: 0.31, alpha: 1)
     
     private lazy var habitColorButton: UIButton = {
         let button = UIButton()
         let size:CGFloat = 30.0
         button.frame = CGRect(x: 0, y: 0, width: size, height: size)
         button.layer.cornerRadius = size / 2
-        button.layer.backgroundColor = UIColor(red: 1, green: 0.624, blue: 0.31, alpha: 1).cgColor
-        button.layer.borderColor = UIColor(red: 1, green: 0.624, blue: 0.31, alpha: 1).cgColor
+        button.layer.backgroundColor = habitColor.cgColor
+        button.layer.borderColor = habitColor.cgColor
         button.layer.borderWidth = 1
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(didTapColorButton), for: .touchUpInside)
@@ -120,8 +117,6 @@ class HabitViewController: UIViewController {
         
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineHeightMultiple = 1.16
-        // Line height: 18 pt
-        // (identical to box height)
         titleLabel.attributedText = NSMutableAttributedString(
             string: "ВРЕМЯ",
             attributes: [NSAttributedString.Key.kern: -0.08, NSAttributedString.Key.paragraphStyle: paragraphStyle])
@@ -154,32 +149,73 @@ class HabitViewController: UIViewController {
         let datePicker = UIDatePicker(frame: CGRect(x: 0, y: 0, width: 375, height: 216))
         datePicker.preferredDatePickerStyle = .wheels
         datePicker.datePickerMode = .time
+        datePicker.date = habitDate
         datePicker.addTarget(self, action: #selector(self.didChooseDate), for: .valueChanged)
         return datePicker
     }()
+    
+    private lazy var deleteLabelView = UIView()
+    
+    private lazy var deleteLabel: UILabel = {
+        let label = UILabel()
+        label.isHidden = habitIsNew
+        label.frame = CGRect(x: 0, y: 0, width: 147, height: 22)
+        label.backgroundColor = .white
+        label.textColor = UIColor(red: 1, green: 0.231, blue: 0.188, alpha: 1)
+        label.font = myHabitsFonts.headline
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineHeightMultiple = 1.1
+        label.textAlignment = .center
+        label.attributedText = NSMutableAttributedString(
+            string: "Удалить привычку",
+            attributes: [NSAttributedString.Key.kern: -0.41, NSAttributedString.Key.paragraphStyle: paragraphStyle])
+        label.isUserInteractionEnabled = true
+        let tapDeleteLabel = UITapGestureRecognizer(target: self, action: #selector(didTapDeleteLabel))
+        label.addGestureRecognizer(tapDeleteLabel)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    private lazy var alertController = UIAlertController(
+        title: "Удалить привычку",
+        message: habitNameText,
+        preferredStyle: .alert
+    )
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setup()
         self.setupGestures()
+        self.setupAlertConfiguration()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         navigationItem.title = "Создать"
+        
         let cancelButton: UIBarButtonItem = UIBarButtonItem(
             title: "Отменить",
             style: .plain,
             target: self,
             action: #selector(cancel))
         self.navigationItem.leftBarButtonItem = cancelButton;
-        let createButton: UIBarButtonItem = UIBarButtonItem(
-            title: "Сохранить",
-            style: .plain,
-            target: self,
-            action: #selector(save))
-        self.navigationItem.rightBarButtonItem = createButton;
+        
+        if habitIsNew == true {
+            let createButton: UIBarButtonItem = UIBarButtonItem(
+                title: "Сохранить",
+                style: .plain,
+                target: self,
+                action: #selector(save))
+            self.navigationItem.rightBarButtonItem = createButton;
+        } else {
+            let createButton: UIBarButtonItem = UIBarButtonItem(
+                title: "Сохранить",
+                style: .plain,
+                target: self,
+                action: #selector(saveEditedHabit))
+            self.navigationItem.rightBarButtonItem = createButton;
+        }
         
         NotificationCenter.default.addObserver(
             self,
@@ -198,6 +234,8 @@ class HabitViewController: UIViewController {
         
         self.view.addSubview(self.topSeparator)
         self.view.addSubview(self.scrollView)
+        self.view.addSubview(self.deleteLabel)
+        
         self.scrollView.addSubview(self.stackView)
         
         self.habitNameView.addSubview(self.habitName)
@@ -231,11 +269,16 @@ class HabitViewController: UIViewController {
             self.scrollView.topAnchor.constraint(equalTo: self.topSeparator.bottomAnchor),
             self.scrollView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
             self.scrollView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
-            self.scrollView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
+            self.scrollView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -40),
+            
+            self.deleteLabel.heightAnchor.constraint(equalToConstant: 22),
+            self.deleteLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            self.deleteLabel.widthAnchor.constraint(equalToConstant: 147),
+            self.deleteLabel.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -18),
             
             self.stackView.leadingAnchor.constraint(equalTo: self.scrollView.leadingAnchor),
             self.stackView.widthAnchor.constraint(equalTo: self.scrollView.widthAnchor),
-            
+
             self.habitNameView.heightAnchor.constraint(equalToConstant: 21 + 18),
             self.habitName.leadingAnchor.constraint(equalTo: self.habitNameView.leadingAnchor, constant: 16),
             self.habitName.bottomAnchor.constraint(equalTo: self.habitNameView.bottomAnchor),
@@ -263,6 +306,7 @@ class HabitViewController: UIViewController {
             self.habitTimeComment.bottomAnchor.constraint(equalTo: self.habitTimeCommentView.bottomAnchor),
             
             self.datePickerView.heightAnchor.constraint(equalToConstant: 15 + 216),
+            self.datePickerView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
         ])
     }
     
@@ -272,7 +316,7 @@ class HabitViewController: UIViewController {
     }
     
     @objc private func habitNameChanged(_: UITextField) {
-        habitNameText = habitNameTextField.text ?? "Название привычки не задано"
+        habitNameText = habitNameTextField.text ?? " "
     }
     
     @objc private func didShowKeyboard(_ notification: Notification) {
@@ -319,6 +363,44 @@ class HabitViewController: UIViewController {
         
         NotificationCenter.default.post(name: Notification.Name("reloadHabits"), object: nil)
     }
+    
+    func setHabit (_ withTag: Int) {
+        print("Метод установки привычки успешно запустился")
+        habitNameText = HabitsStore.shared.habits[withTag].name
+        habitColor = HabitsStore.shared.habits[withTag].color
+        habitDate = HabitsStore.shared.habits[withTag].date
+    }
+    
+    @objc private func saveEditedHabit() {
+        print("Сохраняем отредактированную привычку")
+        let habit = HabitsStore.shared.habits[habitToEditTag]
+        habit.name = habitNameText
+        habit.color = habitColor
+        habit.date = habitDate
+        HabitsStore.shared.habits[habitToEditTag] = habit
+        
+        self.dismiss(animated: true, completion: nil)
+        
+        NotificationCenter.default.post(name: Notification.Name("reloadHabits"), object: nil)
+    }
+        
+    func setupAlertConfiguration() {
+        alertController.addAction(UIAlertAction(title: "Отмена", style: .default, handler: { _ in
+           print("Не удаляем")
+        }))
+        alertController.addAction(UIAlertAction(title: "Удалить", style: .default, handler: { _ in
+            print("Удаляем")
+            let _ = HabitsStore.shared.habits.remove(at: self.habitToEditTag)
+            
+            self.dismiss(animated: true, completion: nil)
+            NotificationCenter.default.post(name: Notification.Name("reloadHabits"), object: nil)
+        }))
+    }
+    
+    @objc private func didTapDeleteLabel() {
+        print("DeleteLabel button tapped")
+        self.present(alertController, animated: true, completion: nil)
+    }
 }
 
 
@@ -335,5 +417,7 @@ extension HabitViewController: UIColorPickerViewControllerDelegate {
         self.habitColorButton.layer.borderColor = viewController.selectedColor.cgColor
         
      }
+    
+    
 }
 

@@ -9,12 +9,12 @@ import UIKit
 
 class HabitsViewController: UIViewController {
     
-    private var barButtonItem: UIBarButtonItem = {
+    private var barRightButtonItem: UIBarButtonItem = {
         let button = UIBarButtonItem()
         button.style = .plain
         button.image = UIImage(systemName: "plus")
         button.target = HabitsViewController.self
-        button.action = #selector(didTapButton)
+        button.action = #selector(didTapAddButton)
         return button
     }()
     
@@ -47,8 +47,13 @@ class HabitsViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        let barButtonItem = UIBarButtonItem(image: barButtonItem.image, style: .plain, target: self, action: #selector(didTapButton))
-        navigationItem.rightBarButtonItem = barButtonItem
+        
+        let barRightButtonItem = UIBarButtonItem(
+            image: barRightButtonItem.image,
+            style: .plain,
+            target: self,
+            action: #selector(didTapAddButton))
+        navigationItem.rightBarButtonItem = barRightButtonItem
         navigationItem.title = "Сегодня"
         navigationController?.navigationBar.prefersLargeTitles = true
     }
@@ -57,13 +62,12 @@ class HabitsViewController: UIViewController {
         super.viewDidLoad()
         
         NotificationCenter.default.addObserver(self, selector: #selector(
-        self.reloadHabits(notification:)), name: Notification.Name("reloadHabits"),
-        object: nil)
+            self.reloadHabits(notification:)), name: Notification.Name("reloadHabits"),
+                                               object: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(
-        self.reloadProgress(notification:)), name: Notification.Name("reloadProgress"),
-        object: nil)
-        
+            self.showHabitDetais(notification:)), name: Notification.Name("showHabitDetails"),
+                                               object: nil)
         setup()
     }
     
@@ -73,18 +77,19 @@ class HabitsViewController: UIViewController {
     }
     
     private func setup() {
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor(red: 0.949, green: 0.949, blue: 0.969, alpha: 1)
+        
+        self.collectionView.backgroundColor = UIColor(red: 0.949, green: 0.949, blue: 0.969, alpha: 1)
         self.view.addSubview(self.topSeparator)
         self.view.addSubview(self.collectionView)
         
         NSLayoutConstraint.activate([
-            
             self.topSeparator.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
             self.topSeparator.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
             self.topSeparator.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
             self.topSeparator.heightAnchor.constraint(equalToConstant: 1),
             
-            self.collectionView.topAnchor.constraint(equalTo: self.topSeparator.bottomAnchor, constant: 22),
+            self.collectionView.topAnchor.constraint(equalTo: self.topSeparator.bottomAnchor),
             self.collectionView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
             self.collectionView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
             self.collectionView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
@@ -92,14 +97,22 @@ class HabitsViewController: UIViewController {
     }
     
     @objc func reloadHabits(notification: Notification) {
-        HabitsStore.shared.save()
         self.collectionView.reloadData()
     }
     
-    @objc func didTapButton() {
+    @objc func showHabitDetais(notification: Notification) {
+        let tag = notification.userInfo![0] as? Int
+        let vc = HabitDetailsViewController()
+        vc.habitTag = tag!
+        
+        self.navigationController?.pushViewController(vc, animated: false)
+        
+    }
+    
+    @objc func didTapAddButton() {
         let vc = HabitViewController()
+        vc.habitIsNew = true
         let nc = UINavigationController(rootViewController:vc)
-//        nc.modalPresentationStyle = .fullScreen
         self.present(nc, animated: true, completion: nil)
     }
 }
@@ -119,31 +132,45 @@ extension HabitsViewController: UICollectionViewDataSource, UICollectionViewDele
         }
     }
     
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        if section == 0 {
+            return UIEdgeInsets(top: 22, left: 16, bottom: 18, right: 17)
+        } else {
+            return UIEdgeInsets(top: 0, left: 16, bottom: 18, right: 17)
+        }
+    }
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        print(HabitsStore.shared.habits)
+        print("Привычек зарегистрировано: \(HabitsStore.shared.habits.count)")
         
         if indexPath.section == 0 {
             let cell = collectionView.dequeueReusableCell(
                 withReuseIdentifier: "ProgressCollectionViewCell",
                 for: indexPath) as! ProgressCollectionViewCell
-            print(indexPath)
             cell.layer.cornerRadius = 5
             cell.clipsToBounds = true
+            cell.progressLabel.text = "\(lroundf(HabitsStore.shared.todayProgress*100))%"
+            cell.progressBar.progress = HabitsStore.shared.todayProgress
             return cell
         }
         else {
-            
             let cell = collectionView.dequeueReusableCell(
                     withReuseIdentifier: "HabitCollectionViewCell",
                     for: indexPath) as! HabitCollectionViewCell
-            print(indexPath)
             
             let post = HabitsStore.shared.habits[indexPath.row]
             cell.layer.cornerRadius = 5
             cell.clipsToBounds = true
-            cell.setupCell(name: post.name, date: post.dateString, color: post.color)
+            cell.setupHabitCell(
+                name: post.name,
+                date: post.dateString,
+                color: post.color,
+                counter: post.trackDates.count,
+                isDoneToday: post.isAlreadyTakenToday
+            )
             cell.habitColorButton.tag = indexPath.row
+            cell.habitNameLabel.tag = indexPath.row
             return cell
         }
             
